@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 //@DiscriminatorColumn(name = "type",discriminatorType = DiscriminatorType.STRING,length = 2)
 @Data
 @AllArgsConstructor
