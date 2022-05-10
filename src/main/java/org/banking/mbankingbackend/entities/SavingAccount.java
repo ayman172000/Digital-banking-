@@ -1,4 +1,18 @@
 package org.banking.mbankingbackend.entities;
 
-public class SavingAccount {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("SA")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class SavingAccount extends AccountOperation{
+    private double interestRate;
 }
