@@ -10,8 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-//@DiscriminatorColumn(name = "type",discriminatorType = DiscriminatorType.STRING,length = 2)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type",discriminatorType = DiscriminatorType.STRING,length = 2)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +23,6 @@ public abstract class BankAccount {
     private AccountStatus status;
     @ManyToOne
     private Customer customer;
-    @OneToMany(mappedBy = "bankAccount")
+    @OneToMany(mappedBy = "bankAccount",fetch = FetchType.LAZY)//EAGER pour cahrger tous les operation des comptes
     private List<AccountOperation> operationList;
 }

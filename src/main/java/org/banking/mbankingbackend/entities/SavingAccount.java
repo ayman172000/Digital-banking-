@@ -8,7 +8,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-//@DiscriminatorValue("SA")
+@DiscriminatorValue("SA")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
