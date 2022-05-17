@@ -215,4 +215,11 @@ public class BankAccountServiceImpl implements BankAccountService {
         accountHistoryDTO.setTotalPages(accountOperations.getTotalPages());
         return accountHistoryDTO;
     }
+
+    @Override
+    public List<CustomerDTO> searchCustomers(String keyword) {
+        List<Customer> customers=customerRepository.searchCustomer(keyword);
+        return customers.stream().map(cust->
+                DTOMapper.fromCustomer(cust)).collect(Collectors.toList());
+    }
 }
