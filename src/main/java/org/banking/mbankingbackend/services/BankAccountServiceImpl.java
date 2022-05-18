@@ -34,6 +34,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
         log.info("saving new Customer");
+        customerDTO.setId(UUID.randomUUID().toString());
         Customer customer=DTOMapper.fromCustomerDTO(customerDTO);
         Customer savedCustomer= customerRepository.save(customer);
         return DTOMapper.fromCustomer(savedCustomer);
@@ -190,6 +191,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public void deleteCustomer(String customerId)
     {
+
         customerRepository.deleteById(customerId);
     }
     @Override

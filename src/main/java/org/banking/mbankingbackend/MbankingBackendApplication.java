@@ -18,18 +18,18 @@ public class MbankingBackendApplication {
         SpringApplication.run(MbankingBackendApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner commandLineRunner(BankAccountServiceImpl bankAccountService)
     {
         return args -> {
             CustomerDTO customerDTO=new CustomerDTO();
-            customerDTO.setId("1");
+            //customerDTO.setId("1");
             customerDTO.setMail("ayman@gmail.com");
             customerDTO.setNom("ayman");
             bankAccountService.saveCustomer(customerDTO);
             CustomerDTO customerDTO1=new CustomerDTO();
-            customerDTO1.setId("2");
-            customerDTO1.setMail("mouad@gmail.com");
+            //customerDTO1.setId("2");
+            customerDTO1.setMail("jermoumi@gmail.com");
             customerDTO1.setNom("mouad");
             bankAccountService.saveCustomer(customerDTO1);
             //bankAccountService.saveCurrentBankAccount(1000l,10,)

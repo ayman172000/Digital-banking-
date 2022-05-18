@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Customer {
     @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String nom;
     private String mail;
