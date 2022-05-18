@@ -42,12 +42,12 @@ public class BankAccountRestController {
        return bankAccountService.getAccountHistory(accountId,page,size);
     }
 
-    /*@PostMapping("/accounts")
+    @PostMapping("/currentaccounts")
     public BankAccountDTO saveCurrentAccount(@RequestBody double initialBalance,@RequestBody double decouvert,@RequestBody String customerId ) throws CustomerNotFoundException {
         //saveCurrentBankAccount(double initialBalance, double decouvert, String customerId)
         return bankAccountService.saveCurrentBankAccount(initialBalance,decouvert,customerId);
 
-    }*/
+    }
     @PostMapping("/accounts")
     public BankAccountDTO saveSavingAccount(@RequestBody double initialBalance,@RequestBody double interestRate,@RequestBody String customerId) throws CustomerNotFoundException {
         //saveSavingBankAccount(double initialBalance, double interestRate, String customerId)
