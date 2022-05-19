@@ -20,7 +20,7 @@ public class MbankingBackendApplication {
         SpringApplication.run(MbankingBackendApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner commandLineRunner(BankAccountServiceImpl bankAccountService)
     {
         return args -> {
@@ -37,8 +37,34 @@ public class MbankingBackendApplication {
             bankAccountService.saveCustomer(customerDTO1);
             //bankAccountService.saveCurrentBankAccount(1000l,10,)*/
 
-            bankAccountService.saveCurrentBankAccount(1000,10,"25d48d82-3399-4b8b-8d8b-af7e37a15c63");
-            bankAccountService.saveSavingBankAccount(2000,50,"ce191d7f-614d-46c3-9597-60780b70a663");
+            //bankAccountService.saveCurrentBankAccount(1000,10,"25d48d82-3399-4b8b-8d8b-af7e37a15c63");
+            //bankAccountService.saveSavingBankAccount(2000,50,"ce191d7f-614d-46c3-9597-60780b70a663");
+            bankAccountService.credit(
+                    "8e9f3bea-03c0-4126-b0f9-eede4baaf0e3",1000,"credit");
+            bankAccountService.debit(
+                    "8e9f3bea-03c0-4126-b0f9-eede4baaf0e3",1000,"debit");
+
+            bankAccountService.transfer("8e9f3bea-03c0-4126-b0f9-eede4baaf0e3","85a86abd-3ff2-44d9-b801-c7851682071a",100,"trasfer");bankAccountService.credit(
+                    "8e9f3bea-03c0-4126-b0f9-eede4baaf0e3",1000,"credit");
+            bankAccountService.debit(
+                    "8e9f3bea-03c0-4126-b0f9-eede4baaf0e3",1000,"debit");
+
+            bankAccountService.transfer("8e9f3bea-03c0-4126-b0f9-eede4baaf0e3","85a86abd-3ff2-44d9-b801-c7851682071a",100,"trasfer");bankAccountService.credit(
+                    "8e9f3bea-03c0-4126-b0f9-eede4baaf0e3",1000,"credit");
+            bankAccountService.debit(
+                    "8e9f3bea-03c0-4126-b0f9-eede4baaf0e3",1000,"debit");
+
+            bankAccountService.transfer("8e9f3bea-03c0-4126-b0f9-eede4baaf0e3","85a86abd-3ff2-44d9-b801-c7851682071a",100,"trasfer");bankAccountService.credit(
+                    "8e9f3bea-03c0-4126-b0f9-eede4baaf0e3",1000,"credit");
+            bankAccountService.debit(
+                    "8e9f3bea-03c0-4126-b0f9-eede4baaf0e3",1000,"debit");
+
+            bankAccountService.transfer("8e9f3bea-03c0-4126-b0f9-eede4baaf0e3","85a86abd-3ff2-44d9-b801-c7851682071a",100,"trasfer");bankAccountService.credit(
+                    "8e9f3bea-03c0-4126-b0f9-eede4baaf0e3",1000,"credit");
+            bankAccountService.debit(
+                    "8e9f3bea-03c0-4126-b0f9-eede4baaf0e3",1000,"debit");
+
+            bankAccountService.transfer("8e9f3bea-03c0-4126-b0f9-eede4baaf0e3","85a86abd-3ff2-44d9-b801-c7851682071a",100,"trasfer");
         };
     }
 

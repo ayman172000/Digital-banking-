@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.banking.mbankingbackend.dtos.*;
 import org.banking.mbankingbackend.entities.*;
+import org.banking.mbankingbackend.enums.AccountStatus;
 import org.banking.mbankingbackend.enums.OperationType;
 import org.banking.mbankingbackend.mappers.BankAccountMapperImpl;
 import org.banking.mbankingbackend.reposetories.AccountOperationRepository;
@@ -12,6 +13,7 @@ import org.banking.mbankingbackend.reposetories.CustomerRepository;
 import org.banking.mbankingbackend.services.exception.BalanceNotSufficentException;
 import org.banking.mbankingbackend.services.exception.BankAccountNotFoundException;
 import org.banking.mbankingbackend.services.exception.CustomerNotFoundException;
+import org.banking.mbankingbackend.services.exception.TransferException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         if(customer==null)
             throw new CustomerNotFoundException("customer not found");
         SavingAccount bankAccount=new SavingAccount();
+        bankAccount.setStatus(AccountStatus.ACTIVITED);
         bankAccount.setCreatedAt(new Date());
         bankAccount.setBalance(initialBalance);
         bankAccount.setCustomer(customer);
@@ -143,13 +146,15 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public void transfer(String accountIdSrc, String accountIdDest, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficentException {
+    public void transfer(String accountIdSrc, String accountIdDest, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficentException, TransferException {
         BankAccount bankAccountSrc=bankAccountRepository.findById(accountIdSrc).orElse(null);
         if(bankAccountSrc== null)
             throw new BankAccountNotFoundException("Account not found");
         BankAccount bankAccountDest=bankAccountRepository.findById(accountIdDest).orElse(null);
         if(bankAccountDest== null)
             throw new BankAccountNotFoundException("Account not found");
+        if(accountIdDest.equals(accountIdSrc))
+            throw new TransferException("src like dest");
         debit(accountIdSrc,amount,description);
         credit(accountIdDest,amount,description);
     }
@@ -206,7 +211,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         BankAccount bankAccount=bankAccountRepository.findById(accountId).orElse(null);
         if(bankAccount==null)
             throw new BankAccountNotFoundException("account not found");
-        Page<AccountOperation> accountOperations= accountOperationRepository.findByBankAccount_Id(accountId, PageRequest.of(page,size));
+        Page<AccountOperation> accountOperations= accountOperationRepository.findByBankAccount_IdOrderByOperationDateDesc(accountId, PageRequest.of(page,size));
         AccountHistoryDTO accountHistoryDTO=new AccountHistoryDTO();
         List<AccountOperationDTO> accountOperationDTOS= accountOperations.getContent().stream().map(op->DTOMapper.fromAccountOperation(op)).collect(Collectors.toList());
         accountHistoryDTO.setAccountOperationDTOS(accountOperationDTOS);
