@@ -32,7 +32,7 @@ public class BankAccountRestController {
     }
 
     @GetMapping("/accounts/{accountId}/operations")
-    public List<AccountOperationDTO> getHistory(@PathVariable String accountId)
+    public List<AccountOperationDTO> getHistory(@PathVariable(name = "accountId") String accountId)
     {
         return bankAccountService.accountHistory(accountId);
     }
@@ -45,15 +45,15 @@ public class BankAccountRestController {
     }
 
     @PostMapping("/currentaccounts")
-    public BankAccountDTO saveCurrentAccount(@RequestBody double initialBalance,@RequestBody double decouvert,@RequestBody String customerId ) throws CustomerNotFoundException {
+    public BankAccountDTO saveCurrentAccount(@RequestBody CurrentAccountRequest currentAccountRequest ) throws CustomerNotFoundException {
         //saveCurrentBankAccount(double initialBalance, double decouvert, String customerId)
-        return bankAccountService.saveCurrentBankAccount(initialBalance,decouvert,customerId);
+        return bankAccountService.saveCurrentBankAccount(currentAccountRequest.getInitialBalance(),currentAccountRequest.getDecouvert(),currentAccountRequest.getCustomerId());
 
     }
     @PostMapping("/accounts")
-    public BankAccountDTO saveSavingAccount(@RequestBody double initialBalance,@RequestBody double interestRate,@RequestBody String customerId) throws CustomerNotFoundException {
+    public BankAccountDTO saveSavingAccount(@RequestBody SavingAccountRequest savingBankAccountDTO) throws CustomerNotFoundException {
         //saveSavingBankAccount(double initialBalance, double interestRate, String customerId)
-        return bankAccountService.saveSavingBankAccount(initialBalance,interestRate,customerId);
+        return bankAccountService.saveSavingBankAccount(savingBankAccountDTO.getBalance(),savingBankAccountDTO.getDecouvert(),savingBankAccountDTO.getCustomerId());
     }
 
     @PostMapping("/accounts/debit")
@@ -73,5 +73,11 @@ public class BankAccountRestController {
                 transferRequestDTO.getAccountDestination(),
                 transferRequestDTO.getAmount(),
                 transferRequestDTO.getDescription());
+    }
+
+    @GetMapping("/customerAccounts/{id}")
+    public List<BankAccountDTO> getAccountsOfCustomer(
+            @PathVariable(name = "id") String customerId) throws CustomerNotFoundException {
+        return bankAccountService.getAccountsOfCustomer(customerId);
     }
 }

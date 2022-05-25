@@ -1,10 +1,7 @@
 package org.banking.mbankingbackend.mappers;
 
 
-import org.banking.mbankingbackend.dtos.AccountOperationDTO;
-import org.banking.mbankingbackend.dtos.CurrentBankAccountDTO;
-import org.banking.mbankingbackend.dtos.CustomerDTO;
-import org.banking.mbankingbackend.dtos.SavingBankAccountDTO;
+import org.banking.mbankingbackend.dtos.*;
 import org.banking.mbankingbackend.entities.AccountOperation;
 import org.banking.mbankingbackend.entities.CurrentAccount;
 import org.banking.mbankingbackend.entities.Customer;
@@ -67,4 +64,5 @@ public class BankAccountMapperImpl {
         BeanUtils.copyProperties(accountOperation,accountOperationDTO);
         return accountOperationDTO;
     }
+
 }

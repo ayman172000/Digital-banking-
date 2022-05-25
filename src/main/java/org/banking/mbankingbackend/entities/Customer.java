@@ -16,6 +16,7 @@ public class Customer {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+    //private String userId
     private String nom;
     private String mail;
     @OneToMany(mappedBy = "customer")
