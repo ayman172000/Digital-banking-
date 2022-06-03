@@ -50,6 +50,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         if(customer==null)
             throw new CustomerNotFoundException("customer not found");
         CurrentAccount bankAccount=new CurrentAccount();
+        bankAccount.setStatus(AccountStatus.ACTIVITED);
         bankAccount.setCreatedAt(new Date());
         bankAccount.setBalance(initialBalance);
         bankAccount.setCustomer(customer);
